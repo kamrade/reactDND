@@ -1,0 +1,23 @@
+{
+  "name": "react-boilerplate",
+  "description": "basic react boilerplate",
+  "main": "server.js",
+  "authors": [
+    "Denis Michailov"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "test",
+    "react"
+  ],
+  "homepage": "https://github.com/kamrade/react-boilerplate",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
