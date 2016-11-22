@@ -10,7 +10,7 @@
     "test",
     "react"
   ],
-  "homepage": "https://github.com/kamrade/react-boilerplate",
+  "homepage": "",
   "ignore": [
     "**/.*",
     "node_modules",

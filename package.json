@@ -1,6 +1,6 @@
 {
-  "name": "react-weather",
-  "version": "0.1.2",
+  "name": "react-dnd",
+  "version": "0.2.1",
   "description": "just simple react weather",
   "main": "server.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/kamrade/reactDND"
   },
   "keywords": [
     "test",
@@ -17,9 +17,9 @@
   "author": "Denis Michailov",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/kamrade/reactDND"
   },
-  "homepage": "",
+  "homepage": "https://github.com/kamrade/reactDND",
   "dependencies": {
     "axios": "^0.15.2",
     "express": "^4.14.0",
