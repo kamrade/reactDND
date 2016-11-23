@@ -1,20 +1,26 @@
 var React = require('react');
 
-var colors = ["Red","Green","Blue","Yellow","Black","White","Orange"];
+var names = ["Homer","Bart","Lizzy","March","Maggy","Leo","Ramshan"];
 
 var placeholder = document.createElement("li");
 placeholder.className = "placeholder";
 
+var img = document.createElement("img");
+// img.src = "https://www.fillmurray.com/120/35";
+
 var List = React.createClass({
 	getInitialState: function() {
 		return {
-			data: colors
+			data: names
 		};
 	},
 	dragStart: function(e) {
 		this.dragged = e.currentTarget;
 		e.dataTransfer.effectAllowed = 'move';
 		e.dataTransfer.setData("text/html", e.currentTarget);
+		e.dataTransfer.setDragImage(img, 0, 0);
+
+		// e.dataTransfer.setDragImage(img, 0, 0);
 	},
 	dragOver: function(e) {
 		e.preventDefault();
@@ -22,8 +28,17 @@ var List = React.createClass({
 		if (e.target.className == "placeholder") { return; }
 		this.over = e.target;
 
+		var relY = e.clientY - this.over.offsetTop;
+		var height = this.over.offsetHeight / 2;
+		var parent = e.target.parentNode;
 
-		e.target.parentNode.insertBefore(placeholder, e.target);
+		if(relY > height) {
+			this.nodePlacement = "after";
+			parent.insertBefore(placeholder, e.target.nextElementSibling);
+		} else if(relY < height) {
+			this.nodePlacement = "before";
+			parent.insertBefore(placeholder, e.target);
+		}
 	},
 	dragEnd: function(e) {
 		this.dragged.style.display = "block";
@@ -33,6 +48,7 @@ var List = React.createClass({
 		var data = this.state.data;
 		var from = +this.dragged.dataset.id;
 		var to = +this.over.dataset.id;
+		if(this.nodePlacement == "after") to++;
 		if(from < to) to--;
 		console.log(`${from} - ${to}`);
 		data.splice(to, 0, data.splice(from, 1)[0]);
