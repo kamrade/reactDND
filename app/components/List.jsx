@@ -11,34 +11,34 @@ var List = React.createClass({
 			data: colors
 		};
 	},
+	dragStart: function(e) {
+		this.dragged = e.currentTarget;
+		e.dataTransfer.effectAllowed = 'move';
+		e.dataTransfer.setData("text/html", e.currentTarget);
+	},
 	dragOver: function(e) {
-		console.log('drag-over');
 		e.preventDefault();
 		this.dragged.style.display = "none";
-		if(e.target.className == "placeholder") { return; }
+		if (e.target.className == "placeholder") { return; }
 		this.over = e.target;
+
+
 		e.target.parentNode.insertBefore(placeholder, e.target);
 	},
-	dragEnd: function() {
-		console.log('drag-end');
+	dragEnd: function(e) {
 		this.dragged.style.display = "block";
 		this.dragged.parentNode.removeChild(placeholder);
 
 		//Update state
 		var data = this.state.data;
-		var from = Number(this.dragged.dataset.id);
-		var to = Number(this.over.dataset.id);
+		var from = +this.dragged.dataset.id;
+		var to = +this.over.dataset.id;
 		if(from < to) to--;
+		console.log(`${from} - ${to}`);
 		data.splice(to, 0, data.splice(from, 1)[0]);
 		this.setState({
 			data: data
 		});
-	},
-	dragStart: function(e) {
-		console.log('drag-start');
-		this.dragged = e.currentTarget;
-		e.dataTransfer.effectAllowed = 'move';
-		e.dataTransfer.setData("text/html", e.currentTarget);
 	},
 	render: function() {
 		return (
@@ -46,7 +46,7 @@ var List = React.createClass({
 				<ul onDragOver={this.dragOver}>
 					{this.state.data.map(function(item, i) {
 						return <li
-							data-d={i}
+							data-id={i}
 							key={i}
 							draggable="true"
 							onDragEnd={this.dragEnd}
